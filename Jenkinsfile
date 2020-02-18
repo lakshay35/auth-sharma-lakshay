@@ -65,10 +65,10 @@ pipeline {
                         sh 'doctl kubernetes cluster kubeconfig save ${DO_CLUSTER}'
 
                         echo 'Deleting app from kuberenetes cluster'
-                        sh "helm delete personal-website-console"
+                        sh "helm delete auth-service"
 
                         echo 'Releasing app to kuberenetes cluster'
-                        sh "helm install personal-website-console ./kubedeploy"
+                        sh "helm install auth-service ./auth-service"
                     } catch (e) {
                         error()
                     }

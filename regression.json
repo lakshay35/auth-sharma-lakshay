@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "816b7fd3-b421-44a7-911d-5307c01c7064",
+		"name": "auth.sharmalakshay.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{local}}/user/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d94c7f9-c1f7-46dd-8bbc-c084d478f84e",
+						"exec": [
+							"pm.test(\"Status should be 409 or 200\", function( ){",
+							"    var jsonData = pm.response.json();",
+							"    if(jsonData.error) {        // User already exists",
+							"        pm.expect(jsonData.errorMessage).to.equal(\"User with email: sunita712@gmail.com is already registered with auth.sharmalakshay.com\");",
+							"        pm.expect(pm.response.code).to.equal(409);",
+							"    } else {                    // user successfully registered",
+							"        pm.expect(jsonData.response.length).to.be.above(0);",
+							"        pm.expect(pm.response.code).to.equal(200);",
+							"    }",
+							"})",
+							"",
+							"pm.test(\"response object returns with errorMessage empty or with text\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    if(jsonData.error) {",
+							"        pm.expect(jsonData.errorMessage).to.equal(\"User with email: sunita712@gmail.com is already registered with auth.sharmalakshay.com\");",
+							"    } else {",
+							"        pm.expect(jsonData.errorMessage).to.equal(null);",
+							"    }",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://sharmalakshay.com",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"sunita712@gmail.com\",\n\t\"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{prod}}/user/register",
+					"host": [
+						"{{prod}}"
+					],
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{local}}/auth/authenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "469c50cc-60a9-4f9f-aa4e-77235221857f",
+						"exec": [
+							"pm.test(\"Status should be 400, 404, or 200\", function( ){",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 400, 404]);",
+							"})",
+							"",
+							"pm.test(\"response object returns with errorMessage empty or with text\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorMessage).to.be.oneOf([\"\", \"User with email: sunita712@gmail.com is already registered with auth.sharmalakshay.com\"]);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://sharmalakshay.com",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"sunita712@gmail.com\",\n\t\"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{prod}}/auth/authenticate",
+					"host": [
+						"{{prod}}"
+					],
+					"path": [
+						"auth",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{local}}/auth/refresh",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77e9d787-3e90-43ec-a6ac-e4622eddf8e0",
+						"exec": [
+							"pm.test(\"Status should be 400 or 200\", function( ){",
+							"    var jsonData = pm.response.json();",
+							"    if(jsonData.error) {",
+							"        pm.expect(pm.response.code).to.equal(400);",
+							"        pm.expect(jsonData.errorMessage).to.equal(\"Unable to refresh token\");",
+							"    } else {",
+							"        pm.expect(pm.response.code).to.equal(200);",
+							"        pm.expect(jsonData.errorMessage).to.equal(null);",
+							"    }",
+							"})",
+							"",
+							"pm.test(\"response object returns with errorMessage empty or with text\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    if(jsonData.error) {",
+							"        pm.expect(jsonData.response.length).to.equal(0);",
+							"    } else {",
+							"        pm.expect(jsonData.response.length).to.be.above(0);",
+							"    }",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "https://sharmalakshay.com",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdXRoIiwidWlkIjoyLCJyZnQiOiJyZWZyZXNoVG9rZW4iLCJpc3MiOiJtaXo2ejJCMlhZdHplUjhZV1l4NWhTM3BXZDJ3VUd2Kzl6T2RVS0lZb2w4PSIsImV4cCI6MTU4MTgzMDY3OX0.aSgnfC7BuIdoit1yrYMYxRwbg0Uo54Ovs9XQI6whJVw\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{prod}}/auth/refresh",
+					"host": [
+						"{{prod}}"
+					],
+					"path": [
+						"auth",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "43fe90f8-85a9-443b-80e8-47e6cf40db79",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c68cd57a-18d5-4d2b-a7cd-b3664c8aaeda",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "377a256c-5179-41b5-a15d-6b476da61f2a",
+			"key": "local",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"id": "5d8f795a-0347-4d1c-b82a-2d556a54ee93",
+			"key": "prod",
+			"value": "https://auth.sharmalakshay.com",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,38 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "description": "an auth service for sharmalakshay.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lakshay35/auth-sharma-lakshay.git"
+  },
+  "keywords": [
+    "auth",
+    "sharma-lakshay"
+  ],
+  "author": "Lakshay Sharma",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lakshay35/auth-sharma-lakshay/issues"
+  },
+  "homepage": "https://github.com/lakshay35/auth-sharma-lakshay#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.19.1",
+    "prettier-plugin-java": "^0.7.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": ""
+    }
+  }
+}

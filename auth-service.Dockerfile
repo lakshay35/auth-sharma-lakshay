@@ -7,7 +7,7 @@ COPY . .
 
 WORKDIR /tmp/auth
 
-RUN mvn install
+RUN mvn package
 
 FROM openjdk:8-jdk-alpine
 

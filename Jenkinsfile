@@ -17,7 +17,7 @@ pipeline {
                         notifyBuild('STARTED')
                         git credentialsId: 'github-creds', url: 'https://github.com/lakshay35/auth-sharma-lakshay', branch: 'master'
                     } catch (e) {
-                        notifyBuild('FAILED')
+                        error()
                     }
                 }
             }
@@ -35,7 +35,7 @@ pipeline {
 
                         sh 'docker system prune --all'
                     } catch (e) {
-                        notifyBuild('FAILED')
+                        error()
                     }
                 }
             }
@@ -47,7 +47,7 @@ pipeline {
                     try {
                         echo 'Running unit tests'
                     } catch (e) {
-                        notifyBuild('FAILED')
+                        error()
                     }
                 }
 
@@ -70,7 +70,7 @@ pipeline {
                         echo 'Releasing app to kuberenetes cluster'
                         sh "helm install personal-website-console ./kubedeploy"
                     } catch (e) {
-                        notifyBuild('FAILED')
+                        error()
                     }
                 }
 
@@ -85,7 +85,7 @@ pipeline {
                         def image = docker.build('pm-reg-tests', '-f regression.Dockerfile .')
                         sh 'docker system prune --all'
                     } catch (e) {
-                        notifyBuild('FAILED')
+                        error()
                     }
                 }
             }
@@ -94,6 +94,12 @@ pipeline {
     post {
         success {
             notifyBuild()
+        }
+        failure {
+            notifyBuild('FAILED')
+        }
+        fixed {
+            notifyBuild('FIXED')
         }
     }
 }
@@ -110,12 +116,15 @@ def notifyBuild(String buildStatus = 'SUCCESSFUL') {
 
 
   // Override default values based on build status
-  if (buildStatus == 'STARTED') {
+  if (buildStatus == 'FIXED') {
     color = 'YELLOW'
     colorCode = '#FFFF00'
   } else if (buildStatus == 'SUCCESSFUL') {
     color = 'GREEN'
     colorCode = '#00FF00'
+  } else if (buildStatus == 'STARTED') {
+    color = 'GREY'
+    colorCode = '#808080'
   } else {
     subject = "${buildStatus}: Job '${STAGE_NAME} [${env.BUILD_NUMBER}]'"
     color = 'RED'

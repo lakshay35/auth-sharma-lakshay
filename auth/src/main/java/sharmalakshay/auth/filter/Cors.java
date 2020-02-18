@@ -27,17 +27,22 @@ public class Cors implements Filter {
     HttpServletResponse res = (HttpServletResponse) response;
     HttpServletRequest req = (HttpServletRequest) request;
 
-    String origin = req.getHeader("Origin");
-    boolean validOrigin = origin.endsWith("sharmalakshay.com");
+    try {
+      String origin = req.getHeader("Origin");
+      boolean validOrigin = origin.endsWith("sharmalakshay.com");
 
-    if (validOrigin) {
-      res.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
-      res.setHeader("Access-Control-Allow-Methods", "*");
-      res.setHeader("Access-Control-Allow-Headers", "*");
-    } else {
+      if (validOrigin) {
+        res.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
+        res.setHeader("Access-Control-Allow-Methods", "*");
+        res.setHeader("Access-Control-Allow-Headers", "*");
+      } else {
+        res.reset();
+        res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        return;
+      }
+    } catch (NullPointerException exception) {
       res.reset();
-      res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-      return;
+      res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
 
     chain.doFilter(req, res);

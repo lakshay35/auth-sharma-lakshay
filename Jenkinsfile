@@ -134,5 +134,5 @@ def notifyBuild(String buildStatus = 'SUCCESSFUL') {
    def summary = "${subject} (${env.BUILD_URL})"
 
   // Send notifications
-  slackSend (color: colorCode, message: summary)
+  slackSend (color: colorCode, message: summary, channel: 'auth-sharma-lakshay')
 }

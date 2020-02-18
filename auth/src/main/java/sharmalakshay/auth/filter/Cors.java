@@ -11,10 +11,14 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
 /**
  * Cors filter
  */
-@WebFilter("/*")
+@Component
+@Order(1)
 public class Cors implements Filter {
 
   @Override
@@ -23,14 +27,17 @@ public class Cors implements Filter {
     HttpServletResponse res = (HttpServletResponse) response;
     HttpServletRequest req = (HttpServletRequest) request;
 
-    if (req.getHeader("Origin").endsWith("sharmalakshay.com")) {
+    String origin = req.getHeader("Origin");
+    boolean validOrigin = origin.endsWith("sharmalakshay.com");
+
+    if (validOrigin) {
       res.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
       res.setHeader("Access-Control-Allow-Methods", "*");
       res.setHeader("Access-Control-Allow-Headers", "*");
     } else {
-      res.setHeader("Access-Control-Allow-Origin", "none");
-      res.setHeader("Access-Control-Allow-Methods", "none");
-      res.setHeader("Access-Control-Allow-Headers", "none");
+      res.reset();
+      res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      return;
     }
 
     chain.doFilter(req, res);

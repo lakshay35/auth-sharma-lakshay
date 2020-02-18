@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        def image = docker.build(DOCKER_IMAGE)
+                        def image = docker.build(DOCKER_IMAGE, '-f auth-service.Dockerfile .')
                         docker.withRegistry('', DOCKER_CREDS) {
                             image.push("${env.BUILD_NUMBER}")
                             image.push("latest")

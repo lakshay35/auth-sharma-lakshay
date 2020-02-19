@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,11 +31,11 @@ public class Cors implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
 
     try {
-      String origin = req.getHeader("Origin");
+      String origin = req.getHeader(HttpHeaders.ORIGIN);
       boolean validOrigin = origin.endsWith("sharmalakshay.com");
 
       if (validOrigin) {
-        res.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
+        res.setHeader("Access-Control-Allow-Origin", origin);
         res.setHeader("Access-Control-Allow-Methods", "*");
         res.setHeader("Access-Control-Allow-Headers", "*");
       } else {

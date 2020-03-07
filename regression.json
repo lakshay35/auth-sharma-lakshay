@@ -106,7 +106,7 @@
 					},
 					{
 						"key": "Origin",
-						"value": "https://sharmalakshay.com",
+						"value": "http://sharmalakshay.com",
 						"type": "text"
 					}
 				],
@@ -175,7 +175,7 @@
 					},
 					{
 						"key": "Origin",
-						"value": "https://sharmalakshay.com",
+						"value": "http://sharmalakshay.com",
 						"type": "text"
 					}
 				],
@@ -234,7 +234,7 @@
 		{
 			"id": "5d8f795a-0347-4d1c-b82a-2d556a54ee93",
 			"key": "prod",
-			"value": "https://auth.sharmalakshay.com",
+			"value": "http://auth.sharmalakshay.com",
 			"type": "string"
 		}
 	],

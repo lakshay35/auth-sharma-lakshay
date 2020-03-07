@@ -4,6 +4,9 @@ metadata:
   name: {{ include "auth-service.fullname" . }}
   labels:
     {{- include "auth-service.labels" . | nindent 4 }}
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '9090'
 spec:
   type: {{ .Values.service.type }}
   ports:

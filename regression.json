@@ -88,7 +88,7 @@
 							"",
 							"pm.test(\"response object returns with errorMessage empty or with text\", function() {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.errorMessage).to.be.oneOf([\"\", \"User with email: sunita712@gmail.com is already registered with auth.sharmalakshay.com\"]);",
+							"    pm.expect(jsonData.errorMessage).to.be.oneOf([null, \"User with email: sunita712@gmail.com is already registered with auth.sharmalakshay.com\"]);",
 							"})"
 						],
 						"type": "text/javascript"
@@ -106,7 +106,7 @@
 					},
 					{
 						"key": "Origin",
-						"value": "http://sharmalakshay.com",
+						"value": "https://sharmalakshay.com",
 						"type": "text"
 					}
 				],
@@ -175,7 +175,7 @@
 					},
 					{
 						"key": "Origin",
-						"value": "http://sharmalakshay.com",
+						"value": "https://sharmalakshay.com",
 						"type": "text"
 					}
 				],
@@ -226,15 +226,15 @@
 	],
 	"variable": [
 		{
-			"id": "377a256c-5179-41b5-a15d-6b476da61f2a",
+			"id": "8848704d-084d-467b-b4d1-a36ef6805d3b",
 			"key": "local",
 			"value": "http://localhost:8080",
 			"type": "string"
 		},
 		{
-			"id": "5d8f795a-0347-4d1c-b82a-2d556a54ee93",
+			"id": "aba78238-bbc5-4100-b534-d8e9b4995c3f",
 			"key": "prod",
-			"value": "http://auth.sharmalakshay.com",
+			"value": "https://auth.sharmalakshay.com",
 			"type": "string"
 		}
 	],

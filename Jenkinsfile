@@ -77,19 +77,19 @@ pipeline {
             }
         }
 
-        stage('Regression API Test') {
-            steps {
-                script {
-                    try {
-                        echo 'running regression tests on api'
-                        def image = docker.build('pm-reg-tests', '-f regression.Dockerfile .')
-                        sh 'docker system prune --all'
-                    } catch (e) {
-                        error()
-                    }
-                }
-            }
-        }
+        // stage('Regression API Test') {
+        //     steps {
+        //         script {
+        //             try {
+        //                 echo 'running regression tests on api'
+        //                 def image = docker.build('pm-reg-tests', '-f regression.Dockerfile .')
+        //                 sh 'docker system prune --all'
+        //             } catch (e) {
+        //                 error()
+        //             }
+        //         }
+        //     }
+        // }
     }
     post {
         success {

@@ -81,7 +81,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'sleep 15000'
+                        sh 'sleep 15'
                         echo 'running regression tests on api'
                         def image = docker.build('pm-reg-tests', '-f regression.Dockerfile .')
                         sh 'docker system prune --all'

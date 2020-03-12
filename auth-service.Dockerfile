@@ -7,7 +7,7 @@ COPY . .
 
 WORKDIR /tmp/auth
 
-RUN mvn package -DskipTests
+RUN mvn package
 
 FROM openjdk:8-jdk-alpine
 

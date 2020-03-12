@@ -10,7 +10,7 @@ pipeline {
 
 
     stages {
-        stage('CLone Git Repository') {
+       stage('CLone Git Repository') {
             steps {
                 script {
                     try {
@@ -38,19 +38,6 @@ pipeline {
                         error()
                     }
                 }
-            }
-        }
-
-        stage('Unit Tests') {
-            steps {
-                script {
-                    try {
-                        echo 'Running unit tests'
-                    } catch (e) {
-                        error()
-                    }
-                }
-
             }
         }
 
